@@ -2,17 +2,19 @@ import { readFileSync } from 'fs';
 import path from 'path';
 import { sanitizeHtml } from './sanitizer';
 import type { ParsedRequest } from '$lib/types';
+import { fonts } from './font';
 
-const file = path.join(process.cwd(), 'static', 'fonts', 'Epilogue.woff2');
-const regular = readFileSync(file).toString('base64');
+// const file = path.join(process.cwd(), 'static', 'fonts', 'Epilogue.woff2');
+// const regular = readFileSync(file).toString('base64');
 
 function getCss(titleColor: string, descriptionColor: string) {
 	return `
+
 	@font-face {
 		font-family: 'Epilogue';
 		font-style:  normal;
 		font-weight: 100 900;
-		src: url(data:font/woff2;charset=utf-8;base64,${regular}) format('woff2');
+		src: url(data:font/woff2;charset=utf-8;base64,${fonts}) format('woff2');
 	}
 	.title {
 		font-size: 36px	;
