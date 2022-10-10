@@ -4,9 +4,18 @@ import { sanitizeHtml } from './sanitizer';
 import type { ParsedRequest } from '$lib/types';
 import { fonts } from './font';
 
+/**
+ * convert font to base64 string and make new file to font.ts
+ */
 // const file = path.join(process.cwd(), 'static', 'fonts', 'Epilogue.woff2');
 // const regular = readFileSync(file).toString('base64');
 
+/**
+ * add style to svg template
+ * @param titleColor
+ * @param descriptionColor
+ * @returns
+ */
 function getCss(titleColor: string, descriptionColor: string) {
 	return `
 
@@ -27,7 +36,7 @@ function getCss(titleColor: string, descriptionColor: string) {
 		font-size: 24px;
 		line-height: 1;
 		font-family: Epilogue;
-		font-weight: 500;
+		font-weight: 600;
 		fill: ${descriptionColor};
 	}
 	`;
@@ -71,6 +80,10 @@ export const getSvg = (parsedReq: ParsedRequest) => {
 	if (descriptionColor === 'white') {
 		descriptionColorConf = '#FFFFFF';
 	}
+
+	/**
+	 * change font color if background is white
+	 */
 	if (logoColor === 'white' && bg === 'white') {
 		logoColorConf = '#18191F';
 	}
@@ -166,10 +179,10 @@ export const getSvg = (parsedReq: ParsedRequest) => {
 	  </g>
 	  ${logoTypeAppear}
 	  <g>
-		  <text x='230' y='400' class='title'>
+		  <text x='230' y='420' class='title'>
 			  ${sanitizeHtml(title)}
 		  </text>
-		  <text x='230' y='440' class='description'>
+		  <text x='230' y='455' class='description'>
 			  ${sanitizeHtml(description)}
 		  </text>
 	  </g>

@@ -1,6 +1,6 @@
 # Open Graph Image Generator
 
-Generator untuk membuat Open Graph Image secara dinamis.
+Generator untuk membuat Open Graph Image secara dinamis. Terinspirasi dari [OG-Image](https://github.com/vercel/og-image).
 
 ## Bagaimana gambar bisa diproses?
 

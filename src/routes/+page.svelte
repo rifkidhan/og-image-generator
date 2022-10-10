@@ -10,17 +10,20 @@
 	let colors = data.colors;
 	let logotypes = data.logoTypes;
 
-	let background: string = bgOptions[0].value;
+	let background: string = bgOptions[3].value;
 	let filetype: string = fileTypes[0].value;
 	let logotype: string = logotypes[0].value;
 	let logocolor: string = colors[0].value;
-	let titlecolor: string = colors[0].value;
-	let descriptioncolor: string = colors[0].value;
-	let title: string = 'Hello';
-	let description: string = 'Greeting from Rifkidhan';
+	let titlecolor: string = colors[1].value;
+	let descriptioncolor: string = colors[1].value;
+	let title: string = 'Hello World';
+	let description: string = 'Just like everyone else';
 
-	let loading: boolean = true;
+	let loading: boolean = false;
 
+	/**
+	 * toast config
+	 */
 	let message: { type: 'error' | 'success' | string; content: string } = {
 		type: '',
 		content: ''
@@ -39,6 +42,9 @@
 		}, 3000);
 	};
 
+	/**
+	 * add source to image url
+	 */
 	const hostname: string = $page.url.origin;
 
 	$: imageSrc = `${hostname}/${encodeURIComponent(
@@ -137,7 +143,8 @@
 				on:load={() => {
 					loading = false;
 				}}
-				on:copy={() => setToast('success', 'success to copy url and other')}
+				on:copy={() => setToast('success', 'Success copy url to clipboard.')}
+				on:error={() => setToast('error', 'Something wrong in your file.')}
 			/>
 		</div>
 		{#if showToast}

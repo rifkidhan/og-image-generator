@@ -1,6 +1,9 @@
 import type { PageLoad } from './$types';
 import type { DropdownOption } from '$lib/types';
 
+/**
+ * add data to page
+ */
 export const load: PageLoad = () => {
 	const filetypes: DropdownOption[] = [
 		{ value: 'png', text: 'PNG' },
