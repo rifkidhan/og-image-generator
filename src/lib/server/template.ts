@@ -1,8 +1,10 @@
 import { readFileSync } from 'fs';
+import path from 'path';
 import { sanitizeHtml } from './sanitizer';
 import type { ParsedRequest } from '$lib/types';
 
-const regular = readFileSync(`static/fonts/Epilogue.woff2`).toString('base64');
+const file = path.join(process.cwd(), 'static', 'fonts', 'Epilogue.woff2');
+const regular = readFileSync(file).toString('base64');
 
 function getCss(titleColor: string, descriptionColor: string) {
 	return `
