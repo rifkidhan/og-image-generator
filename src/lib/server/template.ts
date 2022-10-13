@@ -7,8 +7,10 @@ import { fonts } from './font';
 /**
  * convert font to base64 string and make new file to font.ts
  */
-// const file = path.join(process.cwd(), 'static', 'fonts', 'Epilogue.woff2');
-// const regular = readFileSync(file).toString('base64');
+// const file = path.join(process.cwd(), 'static', 'fonts', 'Epilogue-Bold.ttf');
+// const regular = readFileSync(file).buffer;
+
+// console.log(regular);
 
 /**
  * add style to svg template

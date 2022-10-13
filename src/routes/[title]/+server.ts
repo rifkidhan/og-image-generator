@@ -3,17 +3,23 @@ import { error } from '@sveltejs/kit';
 import sharp from 'sharp';
 import { getSvg } from '$lib/server/template';
 import { parseRequest } from '$lib/server/parser';
+import { svgTemplate } from '$lib/server/svg';
 
 export const GET: RequestHandler = async (event) => {
 	const parsedReq = parseRequest(event);
 	const { fileType } = parsedReq;
 	const svg = getSvg(parsedReq);
-	const buffer = Buffer.from(svg);
+	const temp = await svgTemplate(parsedReq);
+	if (!temp) {
+		throw error(500, 'something error in source file');
+	}
+	const buffer = Buffer.from(temp);
 	const image = await sharp(buffer).toFormat(fileType).toBuffer();
 
 	if (!image) {
 		throw error(500, 'something error in source file');
 	}
+
 	return new Response(image, {
 		headers: {
 			'Content-Type': `image/${fileType}`,

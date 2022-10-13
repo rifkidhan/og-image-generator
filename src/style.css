@@ -1,25 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-	@font-face {
-		font-family: 'Epilogue';
-		src: url('/fonts/Epilogue.woff2') format('woff2');
-		font-weight: 100 900;
-		font-display: swap;
-		font-style: normal;
-	}
-	@font-face {
-		font-family: 'Epilogue';
-		src: url('/fonts/Epilogue-Italic.woff2') format('woff2');
-		font-weight: 100 900;
-		font-display: swap;
-		font-style: italic;
-	}
 	html,
 	body {
-		@apply selection:bg-yellow h-full w-full touch-manipulation overscroll-x-none bg-white font-sans font-medium antialiased;
+		@apply h-full w-full touch-manipulation overscroll-x-none bg-white font-sans font-medium antialiased selection:bg-yellow;
 	}
 	body {
 		@apply relative m-0 min-h-full text-sm text-black md:text-base;
