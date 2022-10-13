@@ -21,7 +21,7 @@
 		"eslint": "^8.25.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"postcss": "^8.4.17",
+		"postcss": "^8.4.18",
 		"prettier": "^2.7.1",
 		"prettier-plugin-svelte": "^2.8.0",
 		"prettier-plugin-tailwindcss": "^0.1.13",
@@ -35,7 +35,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"satori": "^0.0.39",
+		"satori": "^0.0.40",
 		"sharp": "^0.31.1"
 	}
 }

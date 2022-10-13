@@ -1,14 +1,12 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import sharp from 'sharp';
-import { getSvg } from '$lib/server/template';
 import { parseRequest } from '$lib/server/parser';
 import { svgTemplate } from '$lib/server/svg';
 
 export const GET: RequestHandler = async (event) => {
 	const parsedReq = parseRequest(event);
 	const { fileType } = parsedReq;
-	const svg = getSvg(parsedReq);
 	const temp = await svgTemplate(parsedReq);
 	if (!temp) {
 		throw error(500, 'something error in source file');

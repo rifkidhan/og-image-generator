@@ -1,8 +1,12 @@
 import satori from 'satori';
 import type { ParsedRequest } from '$lib/types';
 import { sanitizeHtml } from './sanitizer';
-import { dataLogoMark, dataLogoTypeWhite, dataLogoTypeBlack } from './dataImage';
+import { dataLogoMark, dataLogoTypeWhite, dataLogoTypeBlack, dataPattern } from './dataImage';
 
+/**
+ * Title and description template
+ *
+ */
 const textWrapperEl = (
 	props: Pick<ParsedRequest, 'title' | 'titleColor' | 'description' | 'descriptionColor' | 'bg'>
 ) => {
@@ -13,16 +17,16 @@ const textWrapperEl = (
 	let titleColorConf = '#18191F';
 	let descriptionColorConf = '#18191F';
 
-	if (titleColor === 'white') {
+	/**
+	 * force color to black when inner background is white
+	 */
+	if (titleColor === 'white' && bg !== 'white') {
 		titleColorConf = '#FFFFFF';
 	}
-	if (descriptionColor === 'white') {
+	if (descriptionColor === 'white' && bg !== 'white') {
 		descriptionColorConf = '#FFFFFF';
 	}
-	if (bg === 'white') {
-		titleColorConf = '#18191F';
-		descriptionColorConf = '#18191F';
-	}
+
 	return {
 		type: 'div',
 		props: {
@@ -62,6 +66,9 @@ const textWrapperEl = (
 	};
 };
 
+/**
+ * Logo image wrapper, convert to 'base64' using readFileSync.
+ */
 const logoImageEl = (props: Pick<ParsedRequest, 'logoType' | 'logoColor' | 'bg'>) => {
 	const { logoType, logoColor, bg } = props;
 
@@ -77,6 +84,9 @@ const logoImageEl = (props: Pick<ParsedRequest, 'logoType' | 'logoColor' | 'bg'>
 		}
 	};
 
+	/**
+	 * force logo type color to black when inner background is white
+	 */
 	const logoTypeEl = {
 		type: 'img',
 		props: {
@@ -109,6 +119,9 @@ const logoImageEl = (props: Pick<ParsedRequest, 'logoType' | 'logoColor' | 'bg'>
 export const svgTemplate = async (props: ParsedRequest) => {
 	const { logoType, title, description, bg, logoColor, titleColor, descriptionColor } = props;
 
+	/**
+	 * grab font from google fonts and convert to arrayBuffer
+	 */
 	const testFont = await (
 		await fetch('https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700')
 	).text();
@@ -160,9 +173,10 @@ export const svgTemplate = async (props: ParsedRequest) => {
 							width: '75%',
 							flexDirection: 'column',
 							borderRadius: '12px',
-							border: '4px',
-							boxShadow: '0 6px rgba(23 24 31 1)',
-							padding: '64px'
+							border: '4px #18191F',
+							boxShadow: '0 8px 0 0 #18191F',
+							padding: '64px',
+							overflow: 'hidden'
 						}
 					}
 				},
@@ -173,8 +187,9 @@ export const svgTemplate = async (props: ParsedRequest) => {
 					width: '100%',
 					alignItems: 'center',
 					justifyContent: 'center',
-					backgroundColor: '#FFFFFF',
-					backgroundImage: `url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Cdefs%3E%3Cpattern id='doodad' width='40' height='40' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform='rotate(135)'%3E%3Crect width='100%25' height='100%25' fill='rgba(255, 255, 255,1)'/%3E%3Ccircle cx='33' cy='20' r='1' fill='rgba(249, 90, 44,1)'/%3E%3Ccircle cx='7' cy='20' r='1' fill='rgba(249, 90, 44,1)'/%3E%3Ccircle cx='20' cy='33' r='1' fill='rgba(249, 90, 44,1)'/%3E%3Ccircle cx='20' cy='7' r='1' fill='rgba(249, 90, 44,1)'/%3E%3Ccircle cx='37' cy='3' r='1' fill='rgba(249, 90, 44,1)'/%3E%3Ccircle cx='3' cy='37' r='1' fill='rgba(249, 90, 44,1)'/%3E%3Ccircle cx='37' cy='37' r='1' fill='rgba(249, 90, 44,1)'/%3E%3Ccircle cx='3' cy='3' r='1' fill='rgba(249, 90, 44,1)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23doodad)' height='200%25' width='200%25'/%3E%3C/svg%3E )`
+					backgroundImage: `url(data:image/png;base64,${dataPattern})`,
+					backgroundSize: '1200px 630px',
+					backgroundColor: '#FFFFFF'
 				}
 			}
 		},
